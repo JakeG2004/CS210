@@ -8,42 +8,55 @@ void TokenizeString(FILE* file);
 
 int main(int argc, char* argv[])
 {
+    // Ensure proper # of args
     if(argc != 2)
     {
         printf("Error: Usage is ./a.out <infile>\n");
         exit(-1);
     }
 
+    // Get an empty file
     FILE* file = NULL;
 
+    // Open file
     if(!OpenFile(&file, argv[1]))
     {
         printf("Failed to open file. Exiting...\n");
         exit(-1);
     }
 
+    // Break string into tokens
     TokenizeString(file);
+
+    // Close the file
+    fclose(file);
 }
 
 void TokenizeString(FILE* file)
 {
+    // Get first char
     char curChar = getc(file);
 
+    // While not at end of file
     while(curChar != EOF)
     {
+        // string header
         printf("Token: ");
-        
+
+        // print character by character of token
         while(!isWhiteSpace(curChar) && curChar != EOF)
         {
             printf("%c", curChar);
             curChar = getc(file);
         }
 
+        // ignore whitespace
         while(isWhiteSpace(curChar) && curChar != EOF)
         {
             curChar = getc(file);
         }
 
+        // token finiished
         printf("\n");
     }
 }
@@ -52,6 +65,7 @@ void TokenizeString(FILE* file)
 int OpenFile(FILE** file, char* filename)
 {
     *file = fopen(filename, "r");
+
     if(*file == NULL)
     {
         return 0;
@@ -60,16 +74,12 @@ int OpenFile(FILE** file, char* filename)
     return 1;
 }
 
+// Return 1 if current char is whitespace, 0 if not
 int isWhiteSpace(char curChar)
 {
-    char* whiteSpace = " \t\n";
-
-    for(int i = 0; i < 3; i++)
+    if(curChar == ' ' || curChar == '\t' || curChar == '\n' || curChar == '\0')
     {
-        if(curChar == whiteSpace[i])
-        {
-            return 1;
-        }
+        return 1;
     }
 
     return 0;
