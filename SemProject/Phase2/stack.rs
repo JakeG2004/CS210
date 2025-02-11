@@ -1,0 +1,163 @@
+// Struct defines fields for the type
+// We are using a vector as a our base here
+struct Stack
+{
+    stack: Vec<isize>,
+}
+
+// Impl defines methods for the type
+impl Stack
+{
+    // Make new stack
+    fn new() -> Self
+    {
+        return Stack {stack: Vec::new()}
+    }
+
+    // Pop method
+    fn pop(&mut self) -> Option<isize> {
+        self.stack.pop() // This automatically returns None if the stack is empty
+    }
+
+    // Push method
+    fn push(&mut self, item: isize)
+    {
+        self.stack.push(item);
+    }
+
+    // Clone the first value and return
+    fn peek(&self) -> Option<&isize>
+    {
+        return self.stack.last()
+    }
+
+    // Return size of the array
+    fn size(&self) -> usize
+    {
+        return self.stack.len();
+    }
+
+    // Return bool representing is empty
+    fn is_empty(&self) -> bool
+    {
+        return self.stack.is_empty();
+    }
+
+    // Print the stack
+    fn print_stack(&self)
+    {
+        println!("\nCurrent stack:");
+        for item in &self.stack
+        {
+            println!("{}", item);
+        }
+    }
+}
+
+fn main()
+{
+    let mut stack: Stack = Stack::new();
+
+    // Show stack.size()
+    println!("Stack size using stack.size()");
+    println!("{}", stack.size());
+
+    // Show stack.is_empty()
+    println!("\nIs stack empty using stack.is_empty()?");
+    println!("{}", stack.is_empty());
+
+    // Attempty to pop from empty stack
+    println!("\nPopping from empty stack...");
+    if let Some(value) = stack.pop()
+    {
+        println!("Popped {}", value);
+    }
+    else
+    {
+        println!("Stack is empty");
+    }
+
+    // Attempt to peek empty stack
+    println!("\nPeeking empty stack...");
+    if let Some(value) = stack.peek()
+    {
+        println!("Top value is {}", value);
+    }
+    else
+    {
+        println!("Stack is empty");
+    }
+
+    // Push 1 - 3 to stack
+    println!("\nPushing 1, 2, 3 to the stack...");
+    for i in 1..=3
+    {
+        stack.push(i);
+    }
+
+    // Print the new stack
+    stack.print_stack();
+
+    // Show size again with full stack
+    println!("\nStack size using stack.size()");
+    println!("{}", stack.size());
+
+    // Show is_empty() with full stack
+    println!("\nIs stack empty using stack.is_empty()?");
+    println!("{}", stack.is_empty());
+
+    // Peek a full stack
+    println!("\nPeeking stack...");
+    if let Some(value) = stack.peek()
+    {
+        println!("Top value is {}", value);
+    }
+    else
+    {
+        println!("Stack is empty");
+    }
+
+    // Pop a full stack
+    println!("\nPopping from stack...");
+    if let Some(value) = stack.pop()
+    {
+        println!("Popped {}", value);
+    }
+    else
+    {
+        println!("Stack is empty");
+    }
+
+    // Pop again
+    println!("\nPopping from stack...");
+    if let Some(value) = stack.pop()
+    {
+        println!("Popped {}", value);
+    }
+    else
+    {
+        println!("Stack is empty");
+    }
+
+    // Pop to empty stack
+    println!("\nPopping from stack...");
+    if let Some(value) = stack.pop()
+    {
+        println!("Popped {}", value);
+    }
+    else
+    {
+        println!("Stack is empty");
+    }
+
+    // Show that stack is empty using stack.size()
+    println!("\nStack size using stack.size()");
+    println!("{}", stack.size());
+
+    // And stack.is_empty()
+    println!("\nIs stack empty using stack.is_empty()?");
+    println!("{}", stack.is_empty());
+
+    // Priint the now empty stack
+    stack.print_stack();
+}
